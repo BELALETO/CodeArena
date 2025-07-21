@@ -1,7 +1,7 @@
-import js from '@eslint/js'
-import globals from 'globals'
-import json from '@eslint/json'
-import { defineConfig } from 'eslint/config'
+import js from '@eslint/js';
+import globals from 'globals';
+import json from '@eslint/json';
+import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
   {
@@ -30,10 +30,13 @@ export default defineConfig([
       eqeqeq: ['error', 'always'],
       'no-var': 'error',
       'prefer-const': 'warn',
-      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      'no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_', varsIgnorePattern: 'dotenv' }
+      ],
       'no-multiple-empty-lines': ['warn', { max: 1 }],
       'no-trailing-spaces': 'warn',
       curly: ['error', 'all']
     }
   }
-])
+]);
