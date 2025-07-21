@@ -1,7 +1,7 @@
 const dotenv = require('dotenv').config({ path: './config.env', quiet: true });
 const express = require('express');
 const morgan = require('morgan');
-
+const userRouter = require('./routes/userRouter');
 const app = express();
 
 // middlewares
@@ -15,5 +15,8 @@ app.get('/', (req, res) => {
     message: 'Hello codeArena!'
   });
 });
+
+// routes
+app.use('/api/v1/users', userRouter);
 
 module.exports = app;
