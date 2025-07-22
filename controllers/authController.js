@@ -1,7 +1,10 @@
-const user = require('../models/userModel');
+const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
+const user = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
 const ApiError = require('../utils/ApiError');
+
+const sign = promisify(jwt.sign);
 
 const register = catchAsync(async (req, res, next) => {
   const { firstName, lastName, email, password, passwordConfirm } = req.body;
@@ -18,7 +21,7 @@ const register = catchAsync(async (req, res, next) => {
     passwordConfirm
   });
   // Generate JWT token
-  const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+  const token = await sign({ id: newUser._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN
   });
   res.status(201).json({
@@ -48,7 +51,7 @@ const login = catchAsync(async (req, res, next) => {
     );
   }
   // Generate JWT token
-  const token = jwt.sign({ id: userFound._id }, process.env.JWT_SECRET, {
+  const token = await sign({ id: userFound._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_EXPIRES_IN
   });
   res.status(200).json({

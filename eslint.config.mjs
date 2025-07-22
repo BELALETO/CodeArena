@@ -32,7 +32,7 @@ export default defineConfig([
       'prefer-const': 'warn',
       'no-unused-vars': [
         'warn',
-        { argsIgnorePattern: '^_', varsIgnorePattern: 'dotenv' }
+        { argsIgnorePattern: '^(req|res|next)$', varsIgnorePattern: 'dotenv' }
       ],
       'no-multiple-empty-lines': ['warn', { max: 1 }],
       'no-trailing-spaces': 'warn',
