@@ -109,9 +109,32 @@ const restrictTo = (...roles) => {
   };
 };
 
+const forgotPassword = catchAsync(async (req, res, next) => {
+  const { email } = req.body;
+  console.log('email :>> ', email);
+  if (!email) {
+    return next(new ApiError(400, 'Please provide the email'));
+  }
+  const user = await User.findOne({ email });
+  if (!user) {
+    return next(new ApiError(404, "Can't find a user with this email 😔"));
+  }
+
+  //TODO: generate a random token.
+  const resetToken = await user.generateToken();
+  await user.save({ validateBeforeSave: false });
+  res.status(200).json({
+    status: 'success',
+    message: 'Token generated successfully',
+    resetToken
+  });
+  //TODO: send the token via email.
+});
+
 module.exports = {
   register,
   login,
   protect,
-  restrictTo
+  restrictTo,
+  forgotPassword
 };

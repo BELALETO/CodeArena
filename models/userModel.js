@@ -41,7 +41,8 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ['user', 'admin'],
       default: 'user' // Default role is user
-    }
+    },
+    passwordResetExpiry: Date
   },
   {
     timestamps: true, // Automatically add createdAt and updatedAt fields
@@ -79,6 +80,14 @@ userSchema.methods.changedPasswordAfter = function (JWTTimeStamp) {
   }
   return false; // If no passwordChangedAt field, return false
 };
+
+userSchema.methods.generateToken = async function () {
+  const token = await bcrypt.hash(this.email, 12);
+  this.passwordResetExpiry = Date.now() + 10 * 60 * 1000;
+  console.log('token :>> ', token);
+  return token;
+};
+
 // Create a model from the schema
 const User = mongoose.model('User', userSchema);
 // Export the model
