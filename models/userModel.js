@@ -36,6 +36,11 @@ const userSchema = new mongoose.Schema(
           return el === this.password; // Check if password and passwordConfirm match
         }
       }
+    },
+    role: {
+      type: String,
+      enum: ['user', 'admin'],
+      default: 'user' // Default role is user
     }
   },
   {
@@ -45,12 +50,13 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-userSchema.pre('save', function (next) {
+userSchema.pre('save', async function (next) {
   // Hash the password before saving to the database
   if (this.isModified('password') || this.isNew) {
-    this.password = bcrypt.hashSync(this.password, 12); // Hash the password with a salt rounds of 12
-    this.passwordConfirm = undefined; // Remove passwordConfirm field after hashing
+    this.password = await bcrypt.hash(this.password, 12); // Hash the password with a salt round of 12
   }
+  this.passwordConfirm = undefined; // Remove passwordConfirm field after hashing
+
   next();
 });
 
