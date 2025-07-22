@@ -68,6 +68,17 @@ userSchema.methods.correctPassword = function (
   return bcrypt.compareSync(candidatePassword, userPassword);
 };
 
+userSchema.methods.changedPasswordAfter = function (JWTTimeStamp) {
+  // Check if the password was changed after the JWT was issued
+  if (this.passwordChangedAt) {
+    const changedTimeStamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10
+    );
+    return JWTTimeStamp < changedTimeStamp;
+  }
+  return false; // If no passwordChangedAt field, return false
+};
 // Create a model from the schema
 const User = mongoose.model('User', userSchema);
 // Export the model
