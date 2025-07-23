@@ -2,8 +2,9 @@ const dotenv = require('dotenv').config({ path: './config.env', quiet: true });
 const express = require('express');
 const morgan = require('morgan');
 const userRouter = require('./routes/userRouter');
+const problemRouter = require('./routes/problemRouter');
 const errorController = require('./controllers/errorController');
-const ApiError = require('./utils/ApiError');
+const AppError = require('./utils/AppError');
 const app = express();
 
 // middlewares
@@ -20,9 +21,9 @@ app.get('/', (req, res) => {
 
 // routes
 app.use('/api/v1/users', userRouter);
-
+app.use('/api/v1/problems', problemRouter);
 app.use((req, res, next) => {
-  next(new ApiError(404, 'Not Found'));
+  next(new AppError(404, 'Not Found'));
 });
 
 app.use(errorController);

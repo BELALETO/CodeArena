@@ -2,7 +2,7 @@ const { promisify } = require('util');
 const jwt = require('jsonwebtoken');
 const user = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
-const ApiError = require('../utils/ApiError');
+const AppError = require('../utils/AppError');
 const User = require('../models/userModel');
 
 const sign = promisify(jwt.sign);
@@ -12,7 +12,7 @@ const register = catchAsync(async (req, res, next) => {
   const { firstName, lastName, email, password, passwordConfirm } = req.body;
   // Check if all required fields are provided
   if (!firstName || !lastName || !email || !password || !passwordConfirm) {
-    return next(new ApiError(400, 'Please provide all required fields'));
+    return next(new AppError(400, 'Please provide all required fields'));
   }
   // Create a new user
   const newUser = await user.create({
@@ -39,7 +39,7 @@ const login = catchAsync(async (req, res, next) => {
   const { email, password } = req.body;
   // Check if email and password are provided
   if (!email || !password) {
-    return next(new ApiError(400, 'Please provide email and password'));
+    return next(new AppError(400, 'Please provide email and password'));
   }
   // Find user by email
   const userFound = await user.findOne({ email }).select('+password');
@@ -49,7 +49,7 @@ const login = catchAsync(async (req, res, next) => {
     !(await userFound.correctPassword(password, userFound.password))
   ) {
     return next(
-      new ApiError(401, 'Incorrect email or password. Please try again.')
+      new AppError(401, 'Incorrect email or password. Please try again.')
     );
   }
   // Generate JWT token
@@ -71,12 +71,12 @@ const protect = catchAsync(async (req, res, next) => {
     !req.headers.authorization ||
     !req.headers.authorization.startsWith('Bearer')
   ) {
-    return next(new ApiError(401, 'Not authorized, no token provided'));
+    return next(new AppError(401, 'Not authorized, no token provided'));
   }
   //* Extract the token from Authorization header:
   const token = req.headers.authorization.split(' ').at(1);
   if (!token) {
-    return next(new ApiError(401, 'Not authorized, no token'));
+    return next(new AppError(401, 'Not authorized, no token'));
   }
   //* Verify the token
   const decoded = await verify(token, process.env.JWT_SECRET);
@@ -84,12 +84,12 @@ const protect = catchAsync(async (req, res, next) => {
   //* Check if the user is existing or not
   const user = await User.findById(decoded.id);
   if (!user) {
-    return next(new ApiError(401, 'Not authorized, user not found'));
+    return next(new AppError(401, 'Not authorized, user not found'));
   }
   //* Check if the user has changed his password recently
   if (user.changedPasswordAfter(decoded.iat)) {
     return next(
-      new ApiError(401, 'User recently changed password! Please log in again.')
+      new AppError(401, 'User recently changed password! Please log in again.')
     );
   }
   //* Grant access to protected route
@@ -102,7 +102,7 @@ const restrictTo = (...roles) => {
     const authorized = roles.includes(req.user.role);
     if (!authorized) {
       return next(
-        new ApiError(403, "You're forbiddend from accessing this route.")
+        new AppError(403, "You're forbidden from accessing this route.")
       );
     }
     next();
@@ -113,11 +113,11 @@ const forgotPassword = catchAsync(async (req, res, next) => {
   const { email } = req.body;
   console.log('email :>> ', email);
   if (!email) {
-    return next(new ApiError(400, 'Please provide the email'));
+    return next(new AppError(400, 'Please provide the email'));
   }
   const user = await User.findOne({ email });
   if (!user) {
-    return next(new ApiError(404, "Can't find a user with this email 😔"));
+    return next(new AppError(404, "Can't find a user with this email 😔"));
   }
 
   //TODO: generate a random token.
