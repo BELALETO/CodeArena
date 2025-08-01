@@ -1,4 +1,5 @@
 const { promisify } = require('util');
+const crypto = require('node:crypto');
 const jwt = require('jsonwebtoken');
 const user = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
@@ -112,7 +113,6 @@ const restrictTo = (...roles) => {
 
 const forgotPassword = catchAsync(async (req, res, next) => {
   const { email } = req.body;
-  console.log('email :>> ', email);
   if (!email) {
     return next(new AppError(400, 'Please provide the email'));
   }
@@ -145,9 +145,48 @@ const forgotPassword = catchAsync(async (req, res, next) => {
     user.resetToken = undefined;
     user.resetTokenExpires = undefined;
     await user.save({ validateBeforeSave: false });
-    console.log('err :>> ', err);
+    console.error('err :>> ', err);
     return next(new AppError(500, 'There was an error sending the email'));
   }
+});
+
+const resetPassword = catchAsync(async (req, res, next) => {
+  const { token } = req.params;
+  console.log('token :>> ', token);
+  if (!token) {
+    return next(new AppError(400, 'Please provide the reset token'));
+  }
+  const { password, passwordConfirm } = req.body;
+
+  if (!password || !passwordConfirm) {
+    return next(
+      new AppError(400, 'Please provide both password and password confirm')
+    );
+  }
+  const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+  const user = await User.findOne({
+    passwordResetToken: hashedToken,
+    passwordResetExpires: { $gt: Date.now() }
+  });
+  if (!user) {
+    return next(new AppError(400, 'Token is invalid or expired ☹️'));
+  }
+  user.password = password;
+  user.passwordConfirm = passwordConfirm;
+  user.passwordResetToken = undefined;
+  user.passwordResetExpires = undefined;
+  await user.save();
+
+  const newToken = await sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN
+  });
+  res.status(201).json({
+    status: 'success',
+    newToken,
+    data: {
+      user: user
+    }
+  });
 });
 
 module.exports = {
@@ -155,5 +194,6 @@ module.exports = {
   login,
   protect,
   restrictTo,
-  forgotPassword
+  forgotPassword,
+  resetPassword
 };
