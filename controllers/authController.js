@@ -189,11 +189,34 @@ const resetPassword = catchAsync(async (req, res, next) => {
   });
 });
 
+const updatePassword = catchAsync(async (req, res, next) => {
+  const { password, newPassword, newPasswordConfirm } = req.body;
+  const user = await User.findById(req.user.id).select('+password');
+  if (!(await user.correctPassword(password, user.password))) {
+    return next(new AppError(401, 'Incorrect password. Please try again.'));
+  }
+  user.password = newPassword;
+  user.passwordConfirm = newPasswordConfirm;
+  user.passwordChangedAt = Date.now();
+  await user.save();
+  const token = await sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN
+  });
+  res.status(200).json({
+    status: 'success',
+    token,
+    data: {
+      user: user
+    }
+  });
+});
+
 module.exports = {
   register,
   login,
   protect,
   restrictTo,
   forgotPassword,
-  resetPassword
+  resetPassword,
+  updatePassword
 };
