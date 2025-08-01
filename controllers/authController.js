@@ -211,6 +211,29 @@ const updatePassword = catchAsync(async (req, res, next) => {
   });
 });
 
+const updaeMe = catchAsync(async (req, res, next) => {
+  const { firstName, lastName } = req.body;
+  // Check if all required fields are provided
+  if (!firstName || !lastName) {
+    return next(new AppError(400, 'Please provide all required fields'));
+  }
+  // Update user information
+  const updatedUser = await User.findByIdAndUpdate(
+    req.user.id,
+    { firstName, lastName },
+    { new: true, runValidators: true }
+  );
+  if (!updatedUser) {
+    return next(new AppError(404, 'User not found'));
+  }
+  res.status(200).json({
+    status: 'success',
+    data: {
+      user: updatedUser
+    }
+  });
+});
+
 module.exports = {
   register,
   login,
@@ -218,5 +241,6 @@ module.exports = {
   restrictTo,
   forgotPassword,
   resetPassword,
-  updatePassword
+  updatePassword,
+  updaeMe
 };
