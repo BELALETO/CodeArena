@@ -45,6 +45,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ['user', 'admin'],
       default: 'user' // Default role is user
+    },
+    active: {
+      type: Boolean,
+      default: true, // User is active by default
+      select: false // Do not return active status in queries by default
     }
   },
   {
@@ -69,6 +74,12 @@ userSchema.pre('save', async function (next) {
   if (this.isModified('password') || this.isNew) {
     this.passwordChangedAt = Date.now() - 1000; // Subtract 1 second to ensure the JWT is issued after this time
   }
+  next();
+});
+
+userSchema.pre(/^find/, function (next) {
+  // Exclude inactive users from find queries
+  this.find({ active: { $ne: false } }); // Exclude users where active is false
   next();
 });
 

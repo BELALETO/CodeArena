@@ -234,6 +234,21 @@ const updaeMe = catchAsync(async (req, res, next) => {
   });
 });
 
+const deleteMe = catchAsync(async (req, res, next) => {
+  const user = await User.findByIdAndUpdate(
+    req.user.id,
+    { active: false },
+    { new: true, runValidators: true }
+  );
+  if (!user) {
+    return next(new AppError(404, 'User not found'));
+  }
+  res.status(204).json({
+    status: 'success',
+    data: null
+  });
+});
+
 module.exports = {
   register,
   login,
@@ -242,5 +257,6 @@ module.exports = {
   forgotPassword,
   resetPassword,
   updatePassword,
-  updaeMe
+  updaeMe,
+  deleteMe
 };
