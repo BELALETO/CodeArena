@@ -10,6 +10,31 @@ const sendMail = require('../utils/sendMail');
 const sign = promisify(jwt.sign);
 const verify = promisify(jwt.verify);
 
+const createSendToken = async (user, statusCode, res) => {
+  const token = await sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN
+  });
+  const cookieOptions = {
+    expires: new Date(
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+    ),
+    httpOnly: true
+  };
+  if (process.env.NODE_ENV === 'production') {
+    cookieOptions.secure = true;
+  } // Set secure cookie in production
+  res.cookie('jwt', token, cookieOptions);
+  // Remove password from output
+  user.password = undefined;
+  res.status(statusCode).json({
+    status: 'success',
+    token,
+    data: {
+      user: user
+    }
+  });
+};
+
 const register = catchAsync(async (req, res, next) => {
   const { firstName, lastName, email, password, passwordConfirm } = req.body;
   // Check if all required fields are provided
@@ -24,17 +49,7 @@ const register = catchAsync(async (req, res, next) => {
     password,
     passwordConfirm
   });
-  // Generate JWT token
-  const token = await sign({ id: newUser._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN
-  });
-  res.status(201).json({
-    status: 'success',
-    token,
-    data: {
-      user: newUser
-    }
-  });
+  createSendToken(newUser, 201, res);
 });
 
 const login = catchAsync(async (req, res, next) => {
@@ -54,17 +69,8 @@ const login = catchAsync(async (req, res, next) => {
       new AppError(401, 'Incorrect email or password. Please try again.')
     );
   }
-  // Generate JWT token
-  const token = await sign({ id: userFound._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN
-  });
-  res.status(200).json({
-    status: 'success',
-    token,
-    data: {
-      user: userFound
-    }
-  });
+
+  createSendToken(userFound, 200, res);
 });
 
 const protect = catchAsync(async (req, res, next) => {
@@ -177,16 +183,7 @@ const resetPassword = catchAsync(async (req, res, next) => {
   user.passwordResetExpires = undefined;
   await user.save();
 
-  const newToken = await sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN
-  });
-  res.status(201).json({
-    status: 'success',
-    newToken,
-    data: {
-      user: user
-    }
-  });
+  createSendToken(user, 200, res);
 });
 
 const updatePassword = catchAsync(async (req, res, next) => {
@@ -199,16 +196,8 @@ const updatePassword = catchAsync(async (req, res, next) => {
   user.passwordConfirm = newPasswordConfirm;
   user.passwordChangedAt = Date.now();
   await user.save();
-  const token = await sign({ id: user._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN
-  });
-  res.status(200).json({
-    status: 'success',
-    token,
-    data: {
-      user: user
-    }
-  });
+  // Log the user in, send JWT
+  createSendToken(user, 200, res);
 });
 
 const updaeMe = catchAsync(async (req, res, next) => {
