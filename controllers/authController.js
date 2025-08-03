@@ -158,7 +158,6 @@ const forgotPassword = catchAsync(async (req, res, next) => {
 
 const resetPassword = catchAsync(async (req, res, next) => {
   const { token } = req.params;
-  console.log('token :>> ', token);
   if (!token) {
     return next(new AppError(400, 'Please provide the reset token'));
   }
