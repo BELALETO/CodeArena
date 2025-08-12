@@ -1,0 +1,402 @@
+[
+  {
+    "title": "Two Sum",
+    "description": "Given an array of integers, return indices of the two numbers such that they add up to a target.",
+    "difficulty": "Easy",
+    "tags": ["arrays", "hashmap"],
+    "sampleInput": "[2,7,11,15]\n9",
+    "sampleOutput": "[0,1]",
+    "testCases": [
+      {
+        "input": "[3,2,4]\n6",
+        "output": "[1,2]",
+        "hidden": false
+      },
+      {
+        "input": "[3,3]\n6",
+        "output": "[0,1]",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "title": "Reverse Integer",
+    "description": "Given a signed 32-bit integer, reverse its digits. Return 0 if it overflows.",
+    "difficulty": "Easy",
+    "tags": ["math"],
+    "sampleInput": "123",
+    "sampleOutput": "321",
+    "testCases": [
+      {
+        "input": "-123",
+        "output": "-321",
+        "hidden": false
+      },
+      {
+        "input": "120",
+        "output": "21",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "title": "Palindrome Number",
+    "description": "Determine if an integer is a palindrome (reads the same backward as forward).",
+    "difficulty": "Easy",
+    "tags": ["math"],
+    "sampleInput": "121",
+    "sampleOutput": "true",
+    "testCases": [
+      {
+        "input": "-121",
+        "output": "false",
+        "hidden": false
+      },
+      {
+        "input": "10",
+        "output": "false",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "title": "Valid Parentheses",
+    "description": "Check if a string of parentheses is valid (every opening has a closing).",
+    "difficulty": "Easy",
+    "tags": ["stack", "string"],
+    "sampleInput": "()[]{}",
+    "sampleOutput": "true",
+    "testCases": [
+      {
+        "input": "(]",
+        "output": "false",
+        "hidden": false
+      },
+      {
+        "input": "([)]",
+        "output": "false",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "title": "Merge Two Sorted Lists",
+    "description": "Merge two sorted linked lists into one sorted list.",
+    "difficulty": "Easy",
+    "tags": ["linked-list"],
+    "sampleInput": "[1,2,4]\n[1,3,4]",
+    "sampleOutput": "[1,1,2,3,4,4]",
+    "testCases": [
+      {
+        "input": "[]\n[]",
+        "output": "[]",
+        "hidden": false
+      },
+      {
+        "input": "[]\n[0]",
+        "output": "[0]",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "title": "Longest Substring Without Repeating Characters",
+    "description": "Find the length of the longest substring without repeating characters.",
+    "difficulty": "Medium",
+    "tags": ["sliding-window", "hashmap"],
+    "sampleInput": "\"abcabcbb\"",
+    "sampleOutput": "3",
+    "testCases": [
+      {
+        "input": "\"bbbbb\"",
+        "output": "1",
+        "hidden": false
+      },
+      {
+        "input": "\"pwwkew\"",
+        "output": "3",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "title": "Container With Most Water",
+    "description": "Find two lines that form the largest container (area) with the x-axis.",
+    "difficulty": "Medium",
+    "tags": ["two-pointers", "arrays"],
+    "sampleInput": "[1,8,6,2,5,4,8,3,7]",
+    "sampleOutput": "49",
+    "testCases": [
+      {
+        "input": "[1,1]",
+        "output": "1",
+        "hidden": false
+      },
+      {
+        "input": "[4,3,2,1,4]",
+        "output": "16",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "title": "3Sum",
+    "description": "Find all unique triplets in the array that sum to zero.",
+    "difficulty": "Medium",
+    "tags": ["arrays", "two-pointers"],
+    "sampleInput": "[-1,0,1,2,-1,-4]",
+    "sampleOutput": "[[-1,-1,2],[-1,0,1]]",
+    "testCases": [
+      {
+        "input": "[0,0,0]",
+        "output": "[[0,0,0]]",
+        "hidden": false
+      },
+      {
+        "input": "[1,2,-2,-1]",
+        "output": "[]",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "title": "Binary Tree Inorder Traversal",
+    "description": "Return the inorder traversal of a binary tree.",
+    "difficulty": "Easy",
+    "tags": ["binary-tree", "dfs"],
+    "sampleInput": "[1,null,2,3]",
+    "sampleOutput": "[1,3,2]",
+    "testCases": [
+      {
+        "input": "[]",
+        "output": "[]",
+        "hidden": false
+      },
+      {
+        "input": "[1]",
+        "output": "[1]",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "title": "Maximum Depth of Binary Tree",
+    "description": "Find the maximum depth (height) of a binary tree.",
+    "difficulty": "Easy",
+    "tags": ["binary-tree", "dfs"],
+    "sampleInput": "[3,9,20,null,null,15,7]",
+    "sampleOutput": "3",
+    "testCases": [
+      {
+        "input": "[1,null,2]",
+        "output": "2",
+        "hidden": false
+      },
+      {
+        "input": "[]",
+        "output": "0",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "title": "Best Time to Buy and Sell Stock",
+    "description": "Find the maximum profit from buying and selling a stock.",
+    "difficulty": "Easy",
+    "tags": ["arrays", "greedy"],
+    "sampleInput": "[7,1,5,3,6,4]",
+    "sampleOutput": "5",
+    "testCases": [
+      {
+        "input": "[7,6,4,3,1]",
+        "output": "0",
+        "hidden": false
+      },
+      {
+        "input": "[2,4,1]",
+        "output": "2",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "title": "Climbing Stairs",
+    "description": "Count distinct ways to climb to the top of n stairs (1 or 2 steps at a time).",
+    "difficulty": "Easy",
+    "tags": ["dynamic-programming"],
+    "sampleInput": "3",
+    "sampleOutput": "3",
+    "testCases": [
+      {
+        "input": "2",
+        "output": "2",
+        "hidden": false
+      },
+      {
+        "input": "5",
+        "output": "8",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "title": "Linked List Cycle",
+    "description": "Detect if a linked list has a cycle.",
+    "difficulty": "Easy",
+    "tags": ["linked-list", "two-pointers"],
+    "sampleInput": "[3,2,0,-4]\n1",
+    "sampleOutput": "true",
+    "testCases": [
+      {
+        "input": "[1,2]\n0",
+        "output": "true",
+        "hidden": false
+      },
+      {
+        "input": "[1]\n-1",
+        "output": "false",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "title": "Merge k Sorted Lists",
+    "description": "Merge k sorted linked lists into one sorted list.",
+    "difficulty": "Hard",
+    "tags": ["linked-list", "heap"],
+    "sampleInput": "[[1,4,5],[1,3,4],[2,6]]",
+    "sampleOutput": "[1,1,2,3,4,4,5,6]",
+    "testCases": [
+      {
+        "input": "[]",
+        "output": "[]",
+        "hidden": false
+      },
+      {
+        "input": "[[]]",
+        "output": "[]",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "title": "Word Break",
+    "description": "Determine if a string can be segmented into dictionary words.",
+    "difficulty": "Medium",
+    "tags": ["dynamic-programming"],
+    "sampleInput": "\"leetcode\"\n[\"leet\",\"code\"]",
+    "sampleOutput": "true",
+    "testCases": [
+      {
+        "input": "\"applepenapple\"\n[\"apple\",\"pen\"]",
+        "output": "true",
+        "hidden": false
+      },
+      {
+        "input": "\"catsandog\"\n[\"cats\",\"dog\",\"sand\",\"and\",\"cat\"]",
+        "output": "false",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "title": "Longest Palindromic Substring",
+    "description": "Find the longest palindromic substring in a string.",
+    "difficulty": "Medium",
+    "tags": ["dynamic-programming", "string"],
+    "sampleInput": "\"babad\"",
+    "sampleOutput": "\"bab\"",
+    "testCases": [
+      {
+        "input": "\"cbbd\"",
+        "output": "\"bb\"",
+        "hidden": false
+      },
+      {
+        "input": "\"a\"",
+        "output": "\"a\"",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "title": "Trapping Rain Water",
+    "description": "Compute how much water can be trapped between bars of different heights.",
+    "difficulty": "Hard",
+    "tags": ["arrays", "two-pointers"],
+    "sampleInput": "[0,1,0,2,1,0,1,3,2,1,2,1]",
+    "sampleOutput": "6",
+    "testCases": [
+      {
+        "input": "[4,2,0,3,2,5]",
+        "output": "9",
+        "hidden": false
+      },
+      {
+        "input": "[1,0,1]",
+        "output": "1",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "title": "Course Schedule",
+    "description": "Check if you can finish all courses given prerequisites (no cycles in graph).",
+    "difficulty": "Medium",
+    "tags": ["graph", "topological-sort"],
+    "sampleInput": "2\n[[1,0]]",
+    "sampleOutput": "true",
+    "testCases": [
+      {
+        "input": "2\n[[1,0],[0,1]]",
+        "output": "false",
+        "hidden": false
+      },
+      {
+        "input": "3\n[[1,0],[2,1]]",
+        "output": "true",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "title": "Implement Trie (Prefix Tree)",
+    "description": "Implement a trie with insert, search, and startsWith methods.",
+    "difficulty": "Medium",
+    "tags": ["trie"],
+    "sampleInput": "[\"Trie\",\"insert\",\"search\",\"search\",\"startsWith\",\"insert\",\"search\"]\n[[],[\"apple\"],[\"apple\"],[\"app\"],[\"app\"],[\"app\"],[\"app\"]]",
+    "sampleOutput": "[null,null,true,false,true,null,true]",
+    "testCases": [
+      {
+        "input": "[\"Trie\",\"insert\",\"search\"]\n[[],[\"a\"],[\"a\"]]",
+        "output": "[null,null,true]",
+        "hidden": false
+      },
+      {
+        "input": "[\"Trie\",\"search\"]\n[[],[\"a\"]]",
+        "output": "[null,false]",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "title": "Median of Two Sorted Arrays",
+    "description": "Find the median of two sorted arrays in O(log(min(m,n))) time.",
+    "difficulty": "Hard",
+    "tags": ["binary-search"],
+    "sampleInput": "[1,3]\n[2]",
+    "sampleOutput": "2.0",
+    "testCases": [
+      {
+        "input": "[1,2]\n[3,4]",
+        "output": "2.5",
+        "hidden": false
+      },
+      {
+        "input": "[0,0]\n[0,0]",
+        "output": "0.0",
+        "hidden": true
+      }
+    ]
+  }
+]

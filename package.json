@@ -7,7 +7,9 @@
     "start:prod": "NODE_ENV=production node server.js",
     "format": "prettier --write .",
     "lint": "eslint . ",
-    "lint:fix": "eslint . --fix "
+    "lint:fix": "eslint . --fix ",
+    "seed:import": "node data/seed.js --import",
+    "seed:delete": "node data/seed.js --delete"
   },
   "keywords": [],
   "author": "",
@@ -32,7 +34,7 @@
     "mongoose": "^8.16.4",
     "morgan": "^1.10.1",
     "nodemailer": "^7.0.5",
-    "slug": "^11.0.0",
+    "slugify": "^1.6.6",
     "validator": "^13.15.15"
   }
 }
