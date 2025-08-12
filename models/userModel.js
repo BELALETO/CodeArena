@@ -114,6 +114,17 @@ userSchema.methods.generateToken = async function () {
   return resetToken;
 };
 
+userSchema
+  .virtual('fullName')
+  .get(function () {
+    return `${this.firstName} ${this.lastName}`;
+  })
+  .set(function (value) {
+    const parts = value.split(' ');
+    this.firstName = parts[0];
+    this.lastName = parts[1];
+  });
+
 // Create a model from the schema
 const User = mongoose.model('User', userSchema);
 // Export the model
