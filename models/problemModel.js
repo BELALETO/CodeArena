@@ -25,7 +25,11 @@ const problemSchema = new mongoose.Schema(
       default: 'Easy'
     },
     tags: [String], // e.g., ['arrays', 'recursion']
-
+    points: {
+      type: Number,
+      required: [true, 'A problem must have points'],
+      default: 100 // Default points for the problem
+    },
     sampleInput: {
       type: String,
       required: true
@@ -37,18 +41,9 @@ const problemSchema = new mongoose.Schema(
 
     testCases: [
       {
-        input: {
-          type: String,
-          required: true
-        },
-        output: {
-          type: String,
-          required: true
-        },
-        hidden: {
-          type: Boolean,
-          default: true // visible only to system
-        }
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'TestCase',
+        default: []
       }
     ]
   },
