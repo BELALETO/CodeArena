@@ -4,6 +4,8 @@ const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const userRouter = require('./routes/userRouter');
 const problemRouter = require('./routes/problemRouter');
+const submissionRouter = require('./routes/submissionRouter');
+
 const errorController = require('./controllers/errorController');
 const AppError = require('./utils/AppError');
 const helmet = require('helmet');
@@ -34,6 +36,7 @@ app.use(hpp());
 // routes
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/problems', problemRouter);
+app.use('/api/v1/submissions', submissionRouter);
 app.use((req, res, next) => {
   next(new AppError(404, 'Not Found'));
 });

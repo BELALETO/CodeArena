@@ -1,0 +1,122 @@
+[
+  {
+    "input": "[2,7,11,15]\n9",
+    "output": "[0,1]",
+    "problem": "Two Sum",
+    "isPublic": true
+  },
+  {
+    "input": "[3,2,4]\n6",
+    "output": "[1,2]",
+    "problem": "Two Sum",
+    "isPublic": true
+  },
+  {
+    "input": "[3,3]\n6",
+    "output": "[0,1]",
+    "problem": "Two Sum",
+    "isPublic": true
+  },
+  {
+    "input": "[1,2,3,4,5,6,7,8,9,10]\n19",
+    "output": "[8,9]",
+    "problem": "Two Sum",
+    "isPublic": false
+  },
+  {
+    "input": "['h','e','l','l','o']",
+    "output": "['o','l','l','e','h']",
+    "problem": "Reverse String",
+    "isPublic": true
+  },
+  {
+    "input": "['H','a','n','n','a','h']",
+    "output": "['h','a','n','n','a','H']",
+    "problem": "Reverse String",
+    "isPublic": true
+  },
+  {
+    "input": "['a']",
+    "output": "['a']",
+    "problem": "Reverse String",
+    "isPublic": true
+  },
+  {
+    "input": "()[]{}",
+    "output": "true",
+    "problem": "Valid Parentheses",
+    "isPublic": true
+  },
+  {
+    "input": "(]",
+    "output": "false",
+    "problem": "Valid Parentheses",
+    "isPublic": true
+  },
+  {
+    "input": "{[]}",
+    "output": "true",
+    "problem": "Valid Parentheses",
+    "isPublic": false
+  },
+  {
+    "input": "121",
+    "output": "true",
+    "problem": "Palindrome Number",
+    "isPublic": true
+  },
+  {
+    "input": "-121",
+    "output": "false",
+    "problem": "Palindrome Number",
+    "isPublic": true
+  },
+  {
+    "input": "10",
+    "output": "false",
+    "problem": "Palindrome Number",
+    "isPublic": true
+  },
+  {
+    "input": "III",
+    "output": "3",
+    "problem": "Roman to Integer",
+    "isPublic": true
+  },
+  {
+    "input": "LVIII",
+    "output": "58",
+    "problem": "Roman to Integer",
+    "isPublic": true
+  },
+  {
+    "input": "MCMXCIV",
+    "output": "1994",
+    "problem": "Roman to Integer",
+    "isPublic": false
+  },
+  {
+    "input": "[\"flower\",\"flow\",\"flight\"]",
+    "output": "\"fl\"",
+    "problem": "Longest Common Prefix",
+    "isPublic": true
+  },
+  {
+    "input": "[\"dog\",\"racecar\",\"car\"]",
+    "output": "\"\"",
+    "problem": "Longest Common Prefix",
+    "isPublic": true
+  },
+  {
+    "input": "[\"interspecies\",\"interstellar\",\"interstate\"]",
+    "output": "\"inters\"",
+    "problem": "Longest Common Prefix",
+    "isPublic": false
+  },
+  {
+    "input": "[1,2,4]\n[1,3,4]",
+    "output": "[1,1,2,3,4,4]",
+    "problem": "Merge Two Sorted Lists",
+    "isPublic": true
+  }
+]
