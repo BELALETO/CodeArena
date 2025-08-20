@@ -38,6 +38,13 @@ const userSchema = new mongoose.Schema(
         }
       }
     },
+    solvedProblems: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Problem',
+        default: []
+      }
+    ],
     passwordResetToken: String,
     passwordChangedAt: Date,
     passwordResetExpires: Date,
@@ -45,6 +52,15 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ['user', 'admin'],
       default: 'user' // Default role is user
+    },
+    rank: {
+      type: String,
+      enum: ['Bronze', 'Silver', 'Gold', 'Platinum'],
+      default: 'Bronze' // Default rank is Bronze
+    },
+    score: {
+      type: Number,
+      default: 0 // Default score is 0
     },
     active: {
       type: Boolean,
